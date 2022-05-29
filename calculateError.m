@@ -5,12 +5,12 @@ function [erro] = calculateError (originalImg, decompressedImg)
   p = rows(orig);
   erros = [0;0;0];
   
-  for i = 1:3
+  for i = 1:3 % percorre as 3 dimensoes
     subtracao = orig(:,:,i) - desc(:,:,i);
     original = orig(:,:,i);
-    subtracao = reshape(subtracao, p * p, 1);
-    original = reshape(original, p * p, 1);
-    soma1 = sqrt(sum(subtracao .** 2));
+    subtracao = subtracao(:); % transforma matriz em vetor
+    original = original(:);
+    soma1 = sqrt(sum(subtracao .** 2)); % raiz quadrada da soma dos quadrados dos elementos da matriz
     soma2 = sqrt(sum(original .** 2));
     erros(i,1) = soma1 / soma2;
   endfor

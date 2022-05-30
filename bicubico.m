@@ -1,4 +1,4 @@
-function [coefs] = bicubico (matriz, indices, h)
+function [coeficientes] = bicubico (matriz, indices, h)
   % recebida a matriz N x N e os índices necessários (matriz 4x2), retorna matriz 4x4 com os 16 coeficientes
   
   for i = 1:2 % encontra o valores da funcao nos pontos necessarios
@@ -30,5 +30,5 @@ function [coefs] = bicubico (matriz, indices, h)
        0,1,0,0;
        0,1,2*h,3*(h**2)];
   F = [matriz1, matriz2; matriz3, matriz4]; 
-  coefs = inv(B) * F * inv(B');
+  coeficientes = inv(B) * F * inv(B');
 endfunction

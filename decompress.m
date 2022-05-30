@@ -22,17 +22,17 @@ function [decompressedImg] = decompress (compressedImg, method, k, h)
         endif
 
         % colocar na matriz p x p 
-        lini = (((i - 1) * k) + i);
-        cini = (((j - 1) * k) + j);
+        linha_ini = (((i - 1) * k) + i);
+        coluna_ini = (((j - 1) * k) + j);
         
         xi = x0 + i*h;
         yj = y0 + j*h;
         
-        for a = lini:(i*k)+(i+1)
-          for b = cini:(j*k)+(j+1)
+        for a = linha_ini:(i*k)+(i+1)
+          for b = coluna_ini:(j*k)+(j+1)
             % calculo do polinomio no ponto (xi + (a-lini)*d, yi + (b-cini)*d)
-            x = xi + (a-lini)*d;
-            y = yj + (b-cini)*d;
+            x = xi + (a - linha_ini) * d;
+            y = yj + (b - coluna_ini) * d;
             
             if (method == 1)
               p = coefs(1) + coefs(2) * (x - xi) + coefs(3) * (y - yi) + coefs(4) * (x - xi) * (y - yi);

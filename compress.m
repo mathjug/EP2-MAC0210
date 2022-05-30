@@ -6,7 +6,7 @@ function [compressedImg] = compress (originalImg, k)
   compressedImg = "compressed.png";
   
   for i = 1:p
-    if (rem(i, k + 1) == 0)
+    if (rem(i - 1, k + 1) == 0)
       manter = horzcat(manter,[i]);
     endif
   endfor

@@ -1,13 +1,12 @@
 function [erro] = calculateError (originalImg, decompressedImg)
   % função que, recebendo uma imagem original e a interpolada dela, calcula o erro
-  orig = double(imread (originalImg));
+  orig = imread (originalImg);
   desc = imread (decompressedImg);
-  p = rows(orig);
-  erros = [0;0;0];
+  p_final = rows(desc);
   
   for i = 1:3 % percorre as 3 dimensoes
-    subtracao = orig(:,:,i) - desc(:,:,i);
-    original = orig(:,:,i);
+    subtracao = orig(1:p_final, 1:p_final, i) - desc(1:p_final, 1:p_final, i);
+    original = orig(1:p_final, 1:p_final, i);
     subtracao = subtracao(:); % transforma matriz em vetor
     original = original(:);
     soma1 = sqrt(sum(subtracao .** 2)); % raiz quadrada da soma dos quadrados dos elementos da matriz

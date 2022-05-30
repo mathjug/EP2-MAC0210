@@ -1,6 +1,7 @@
 function [decompressedImg] = decompress (compressedImg, method, k, h)
   % função que, recebendo uma imagem comprimida, faz a sua descompressão
   compressed = imread (compressedImg); % compressed é uma matriz NxNx3
+  compressed = double(compressed);
   
   n = rows(compressed);
   p = n + (n - 1) * k;
@@ -8,13 +9,12 @@ function [decompressedImg] = decompress (compressedImg, method, k, h)
   
   d = h/(k+1) %d é a distancia entre cada ponto e seu adjacente
   
-  fr = compressed(:,:,1);
-  fg = compressed(:,:,2);
-  fb = compressed(:,:,3);
-  fs = [fr, fg, fb];
+  fr = compressed(:,:,1)
+  fg = compressed(:,:,2)
+  fb = compressed(:,:,3)
+  fs = [fr; fg; fb];
+  disp(fs);
   
-  coefsl = nan(4);
-  coefsb = nan(4,4);
   
   %retirar dps
   k = 1;
@@ -26,7 +26,7 @@ function [decompressedImg] = decompress (compressedImg, method, k, h)
     for j = 1:n-1
       %achar o polinomio para um quadrado    
       pontos = [i,j;i,j+1; i+1,j; i+1,j+1];
-      coefsb = bicubico(fs[k], pontos);     
+      coefs = bicubico(fr, pontos, h);     % tem que ser fs(k)
 
       %colocar na matriz pxp 
       lini = (((i-1)*k)+i);
@@ -38,9 +38,9 @@ function [decompressedImg] = decompress (compressedImg, method, k, h)
         for b = cini:(j*k)+(j+1)
           %calculo do polinomio no ponto (xi + (a-lini)*d, yi + (b-cini)*d)
           x = xi + (a-lini)*d;
-          y = yi + (b-cini)*d;
+          y = yj + (b-cini)*d;
           %p = p(x,y) 
-          p = [1,(x-xi),(x-xi)**2,(x-xi)**3] * coefs * [1,(y-yj),(y-yj)**2,(y-yj)**3];
+          p = [1,(x-xi),(x-xi)**2,(x-xi)**3] * coefs * [1;(y-yj);(y-yj)**2;(y-yj)**3];
           img(a,b,k) = p;
         endfor
       endfor

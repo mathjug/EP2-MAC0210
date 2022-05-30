@@ -35,7 +35,7 @@ function [decompressedImg] = decompress (compressedImg, method, k, h)
             y = yj + (b - coluna_ini) * d;
             
             if (method == 1)
-              p = coefs(1) + coefs(2) * (x - xi) + coefs(3) * (y - yi) + coefs(4) * (x - xi) * (y - yi);
+              p = coefs(1) + coefs(2) * (x - xi) + coefs(3) * (y - yj) + coefs(4) * (x - xi) * (y - yj);
             else
               p = [1, (x - xi), (x - xi)**2, (x - xi)**3] * coefs * [1; (y - yj); (y - yj)**2; (y - yj)**3];
             endif
@@ -46,7 +46,8 @@ function [decompressedImg] = decompress (compressedImg, method, k, h)
       endfor
     endfor
   endfor
-  
+  img = uint8(img);
   imwrite (img, "decompressed.png");
+  decompressedImg = "decompressed.png";
   
 endfunction

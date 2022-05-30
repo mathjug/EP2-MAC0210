@@ -1,6 +1,6 @@
 function [erro] = calculateError (originalImg, decompressedImg)
   % função que, recebendo uma imagem original e a interpolada dela, calcula o erro
-  orig = imread (originalImg);
+  orig = double(imread (originalImg));
   desc = imread (decompressedImg);
   p = rows(orig);
   erros = [0;0;0];

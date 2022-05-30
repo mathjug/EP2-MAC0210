@@ -1,6 +1,7 @@
 function [compressedImg] = compress (originalImg, k)
   % função que, recebendo uma imagem, faz a sua compressão
   original = imread (originalImg); % original é uma matriz PxPx3
+  %disp(original)
   p = rows(original);
   manter = [];
   compressedImg = "compressed.png";

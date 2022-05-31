@@ -11,6 +11,6 @@ function [f_img] = f_enunciado (p)
     endfor
   endfor
   
-  imwrite (img, f_img);
+  imwrite (img, f_img, "Quality", 100);
   
 endfunction

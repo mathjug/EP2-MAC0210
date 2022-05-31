@@ -10,13 +10,12 @@ function [compressedImg] = compress (originalImg, k)
       manter = horzcat(manter,[i]);
     endif
   endfor
-  
   if (cores > 1)
     compressed = original(manter, manter,:);
   else
     compressed = original(manter, manter);
   endif
   
-  imwrite (compressed, compressedImg);
+  imwrite (compressed, compressedImg, "Quality", 100);
   
 endfunction

@@ -3,22 +3,30 @@ function [decompressedImg] = decompress (compressedImg, method, k, h)
   compressed = imread (compressedImg); % compressed é uma matriz NxNx3
   compressed = double(compressed);
   
-  n = rows(compressed);
+  [n n cores] = size(compressed);
   p = n + (n - 1) * k;
   img = zeros(p, p, 3); % cria matriz PxPx3 com valores 0 (impede que matriz final não seja P x P)
   
   d = h / (k + 1); % d é a distancia entre cada ponto e seu adjacente
   x0 = y0 = 0;
   
-  for m = 1:3
+  for m = 1:cores
     for i = 1:n-1
       for j = 1:n-1
         % achar os coeficientes do polinomio para o quadrado de lado h    
         pontos = [i,j; i,j+1; i+1,j; i+1,j+1];
         if (method == 1)
-          coefs = bilinear(compressed(:,:,m), pontos, h);
+          if (cores > 1)
+             coefs = bilinear(compressed(:,:,m), pontos, h);
+          else
+             coefs = bilinear(compressed(:,:), pontos, h);
+          endif
         else
-          coefs = bicubico(compressed(:,:,m), pontos, h);
+          if (cores > 1)
+            coefs = bicubico(compressed(:,:,m), pontos, h);
+          else
+            coefs = bicubico(compressed(:,:), pontos, h);
+          endif
         endif
 
         % colocar na matriz p x p 
@@ -39,8 +47,11 @@ function [decompressedImg] = decompress (compressedImg, method, k, h)
             else
               p = [1, (x - xi), (x - xi)**2, (x - xi)**3] * coefs * [1; (y - yj); (y - yj)**2; (y - yj)**3];
             endif
-            
-            img(a, b, m) = p;
+            if (cores > 1)
+              img(a, b, m) = p;
+            else
+              img(a, b) = p;
+            endif
           endfor
         endfor   
       endfor

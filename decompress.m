@@ -60,7 +60,7 @@ function [decompressedImg] = decompress (compressedImg, method, k, h)
       endfor
     endfor
   endfor
-  img = uint16(img);
+  img = uint8(img);
   imwrite (img, "decompressed.png", "Quality", 100);
   decompressedImg = "decompressed.png";
   

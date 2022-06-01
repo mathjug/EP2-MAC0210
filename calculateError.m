@@ -1,7 +1,7 @@
 function [erro] = calculateError (originalImg, decompressedImg)
   % função que, recebendo uma imagem original e a interpolada dela, calcula o erro
-  orig = imread (originalImg);
-  desc = imread (decompressedImg);
+  orig = uint16(imread (originalImg));
+  desc = uint16(imread (decompressedImg));
   [p_final p_final cores] = size(desc);
   
   for i = 1:cores % percorre as dimensoes

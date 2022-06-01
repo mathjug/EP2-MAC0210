@@ -1,11 +1,14 @@
 function [decompressedImg] = decompress (compressedImg, method, k, h)
   % função que, recebendo uma imagem comprimida, faz a sua descompressão
-  compressed = imread (compressedImg); % compressed é uma matriz NxNx3
-  compressed = double(compressed);
+  compressed = double(imread (compressedImg)); % compressed é uma matriz NxNx3
   
   [n n cores] = size(compressed);
   p = n + (n - 1) * k;
-  img = zeros(p, p, 3); % cria matriz PxPx3 com valores 0 (impede que matriz final não seja P x P)
+  %if (cores > 1)
+  %  img = zeros(p, p, 3); % cria matriz PxPx3 com valores 0
+  %else
+  %  img = zeros(p, p);
+  %endif
   
   d = h / (k + 1); % d é a distancia entre cada ponto e seu adjacente
   x0 = y0 = 0;
@@ -57,7 +60,7 @@ function [decompressedImg] = decompress (compressedImg, method, k, h)
       endfor
     endfor
   endfor
-  img = uint8(img);
+  img = uint16(img);
   imwrite (img, "decompressed.png", "Quality", 100);
   decompressedImg = "decompressed.png";
   

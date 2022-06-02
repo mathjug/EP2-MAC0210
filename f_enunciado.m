@@ -4,14 +4,14 @@ function [end_imagem] = f_enunciado (p)
   
   for x = 1:p
     for y = 1:p
-      img(x,y,1) = (sin(x_) + 1) / 2; % adapta-se a função seno para que ela fique no intervalo [0, 1] (imread)
-      img(x,y,2) = (((sin(y_) + sin(x_)) / 2) + 1) / 2;
-      img(x,y,3) = (sin(x_) + 1) / 2;
+      img(x,y,1) = (sin(x_) + 1) / 2 * 255; % adapta-se a função seno para que ela fique no intervalo [0, 1] (imread)
+      img(x,y,2) = (((sin(y_) + sin(x_)) / 2) + 1) / 2 * 255;
+      img(x,y,3) = (sin(x_) + 1) / 2 * 255;
       y_ = y * (pi / (p - 1));
     endfor
     x_ = x * (pi / (p - 1));
   endfor
-  
+  img = uint8(img);
   end_imagem = "f_img.png";
   imwrite (img, end_imagem, "Quality", 100);
 endfunction

@@ -16,22 +16,22 @@ function end_imagem = funcao3 (p)
   for x = 1:p
     for y = 1:p
       if (x <= 0)
-        img(x,y,1) = (-x_**2/2 - fmin)/(fmax -fmin);
+        img(x,y,1) = (-x_**2/2 - fmin)/(fmax -fmin) * 255;
       else
-        img(x,y,1) = (x_**2/2 - fmin)/(fmax -fmin);
+        img(x,y,1) = (x_**2/2 - fmin)/(fmax -fmin) * 255;
       endif
-      img(x,y,2) = (x_**2/2 - y_**2/2 - fmin)/(fmax -fmin);
+      img(x,y,2) = (x_**2/2 - y_**2/2 - fmin)/(fmax -fmin) * 255;
       if (y <= 0)
-        img(x,y,3) = (-y_**2/2 - fmin)/(fmax -fmin);
+        img(x,y,3) = (-y_**2/2 - fmin)/(fmax -fmin) * 255;
       else
-        img(x,y,3) = (y_**2/2 - fmin)/(fmax -fmin);
+        img(x,y,3) = (y_**2/2 - fmin)/(fmax -fmin) * 255;
       endif
       y_ = y0 + y * d;
     endfor
     x_ = x0 + x * d;
   endfor
   
-  img;
+  img = uint8(img);
   end_imagem = "f_img.png";
   imwrite (img, end_imagem, "Quality", 100);
 endfunction

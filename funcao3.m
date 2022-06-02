@@ -1,8 +1,8 @@
 function end_imagem = funcao3 (p)
-% função que monta uma imagem utilizando 
-% f(x,y) =  (-x**2/2 se x <= 0 ou x**2/2 ,se x >= 0 ,
-%              (x**2/2 - y**2/2),
-%             -y**2/2 se y <= 0 ou y**2/2 ,se y >= 0)
+% função R² -> R³ que monta uma imagem utilizando uma função que não é de classe C²
+% f(x,y) = ( -x²/2 (se x <= 0) ou x²/2 (se x > 0),
+%             x²/2 - y²/2,
+%            -y²/2 (se y <= 0) ou y²/2, (se y > 0) )
   
   x_ = y_ = 0; % recebem valores de 4 a 8
   x0 = 4;

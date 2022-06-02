@@ -1,0 +1,37 @@
+function end_imagem = funcao3 (p)
+% função que monta uma imagem utilizando 
+% f(x,y) =  (-x**2/2 se x <= 0 ou x**2/2 ,se x >= 0 ,
+%              (x**2/2 - y**2/2),
+%             -y**2/2 se y <= 0 ou y**2/2 ,se y >= 0)
+  
+  x_ = y_ = 0; % recebem valores de 4 a 8
+  x0 = 4;
+  y0= 4;
+  
+  h = 4;
+  d = h/(p-1);
+  fmax = 32;
+  fmin = -32;
+  
+  for x = 1:p
+    for y = 1:p
+      if (x <= 0)
+        img(x,y,1) = (-x_**2/2 - fmin)/(fmax -fmin);
+      else
+        img(x,y,1) = (x_**2/2 - fmin)/(fmax -fmin);
+      endif
+      img(x,y,2) = (x_**2/2 - y_**2/2 - fmin)/(fmax -fmin);
+      if (y <= 0)
+        img(x,y,3) = (-y_**2/2 - fmin)/(fmax -fmin);
+      else
+        img(x,y,3) = (y_**2/2 - fmin)/(fmax -fmin);
+      endif
+      y_ = y0 + y * d;
+    endfor
+    x_ = x0 + x * d;
+  endfor
+  
+  img;
+  end_imagem = "f_img.png";
+  imwrite (img, end_imagem, "Quality", 100);
+endfunction
